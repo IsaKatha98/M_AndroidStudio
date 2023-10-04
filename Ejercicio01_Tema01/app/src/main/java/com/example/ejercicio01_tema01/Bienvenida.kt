@@ -16,7 +16,7 @@ class Bienvenida: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding= BienvenidaBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
 
         val usuario = intent.getStringExtra("usuario").toString()
         Log.i("actividad", "$usuario")
