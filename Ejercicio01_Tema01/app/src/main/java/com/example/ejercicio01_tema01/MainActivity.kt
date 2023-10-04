@@ -1,12 +1,17 @@
 package com.example.ejercicio01_tema01
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils.concat
 import android.widget.Toast
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.View
+import androidx.core.app.NotificationCompat
 import com.example.ejercicio01_tema01.databinding.ActivityMainBinding
 import com.example.ejercicio01_tema01.databinding.BienvenidaBinding
 import com.example.ejercicio01_tema01.databinding.PausaBinding
@@ -16,7 +21,16 @@ class MainActivity : AppCompatActivity() {
 
     var parar= false
 
+
+
+    var nombre =""
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val oBinding = BienvenidaBinding.inflate(layoutInflater)
+
+        nombre = binding.tvUser.text.toString()
         super.onCreate(savedInstanceState)
 
         Log.i("act","on create")
@@ -41,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("act","on resume")
 
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
         val oBinding = BienvenidaBinding.inflate(layoutInflater)
 
@@ -49,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         var boton = binding.button
 
-        var nombre = binding.tvUser.text.toString()
+
 
         if (parar) {
 
@@ -128,8 +143,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "mi_canal_id"
+            val channelName = "Mi Canal de Notificación"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance)
 
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
 
+        // Crea un intent para abrir una actividad cuando se toque la notificación
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        // Crea la notificación
+        val notificationBuilder = NotificationCompat.Builder(this, "mi_canal_id")
+            .setSmallIcon(R.drawable.noti)
+            .setContentTitle("Cierre de sesión")
+            .setContentText("Se ha cerrado la sesión de $nombre")
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true) // Cierra la notificación al tocarla
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // Muestra la notificación
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.notify(1, notificationBuilder.build())
 
         super.onDestroy()
     }
