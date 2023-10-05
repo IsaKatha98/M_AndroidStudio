@@ -99,10 +99,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*Log.i("act", "resuman")
-        Toast.makeText(applicationContext, "Bienvenido de vuelta", Toast.LENGTH_SHORT).show()*/
-
-
     }
         override fun onPause() {
             super.onPause()
@@ -177,18 +173,6 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-
-
-           /* if(binding.tvUser.text.toString().isEmpty() || binding.tvUser.text.toString().isEmpty()){
-                Toast.makeText(applicationContext, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent(this , Bienvenida::class.java)
-                intent.putExtra("usuario", binding.tvUser.text.toString())
-                startActivity(intent)
-                Toast.makeText(applicationContext, "Iniciando sesión..." + binding.tvUser.text.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-*/
 
 
 
