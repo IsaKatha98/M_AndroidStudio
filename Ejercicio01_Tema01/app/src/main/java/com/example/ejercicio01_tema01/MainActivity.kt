@@ -20,17 +20,9 @@ import com.example.ejercicio01_tema01.databinding.PausaBinding
 class MainActivity : AppCompatActivity() {
 
     var parar= false
-
-
-
     var nombre =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        val oBinding = BienvenidaBinding.inflate(layoutInflater)
-
-        nombre = binding.tvUser.text.toString()
         super.onCreate(savedInstanceState)
 
         Log.i("act","on create")
@@ -43,10 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("act","on start")
 
-        val principal= BienvenidaBinding.inflate(layoutInflater)
-        setContentView(principal.root)
-
-
     }
 
     override fun onResume() {
@@ -57,43 +45,163 @@ class MainActivity : AppCompatActivity() {
 
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        val oBinding = BienvenidaBinding.inflate(layoutInflater)
-
+        val calcB = BienvenidaBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         var boton = binding.button
-
-
+        var vuelta=calcB.btnBack
+        var suma= calcB.btnSuma
+        var resta=calcB.btnResta
+        var mult=calcB.btnMult
+        var div= calcB.btnDiv
+        var numUno= calcB.numPrimerFact.text.toString()
+        var numDos= calcB.numSegundoFact.text.toString()
 
         if (parar) {
 
-
-            setContentView(oBinding.root)
-
-            oBinding.textHola.text = "Nos alegramos de volver a verte, $nombre"
+            setContentView(calcB.root)
 
             parar=false
 
 
         } else {
 
+            //El botón que va del login hacia la calculadora
             boton.setOnClickListener {
 
                 val toast = Toast.makeText(
                     applicationContext,
-                    "Me has pulsado",
+                    "Palante",
                     Toast.LENGTH_SHORT
                 ).show()
 
-                setContentView(oBinding.root)
+                //vista de la calculadora
+                setContentView(calcB.root)
 
-                oBinding.textHola.text = "Nos alegramos de volver a verte, $nombre"
 
 
-                /*val intent = Intent(this , Bienvenida::class.java)
-            intent.putExtra("usuario", binding.tvUser.text.toString())
-            startActivity(intent)*/
+                //botón que va de la calculadora al login
+                vuelta.setOnClickListener() {
+
+                    val toast = Toast.makeText(
+                        applicationContext,
+                        "Patrás",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    setContentView(binding.root)
+
+                }
+
+                var numUno= calcB.numPrimerFact.text.toString()
+                var numDos= calcB.numSegundoFact.text.toString()
+
+                //botón que suma
+                suma.setOnClickListener() {
+
+                    var res=0.0
+
+                    if (numUno.isEmpty()){
+
+                        Log.i("act","el primer num era 0")
+                        var  uno= numUno.toDouble()
+                        uno=0.0
+
+                        res= (uno.toDouble())+(numDos.toDouble())
+
+
+                    } else if (numDos.isEmpty()) {
+
+                        Log.i("act","el segundo num era 0")
+                      var dos= numDos.toDouble()
+
+                        dos=0.0
+
+                        res=(numUno.toDouble())+(dos.toDouble())
+
+
+                    } else {
+
+                        Log.i ("act","suma")
+
+                        res= (numUno.toDouble())+(numDos.toDouble())
+                    }
+
+
+                    calcB.res.text="$res"
+                }
+
+                //botón que resta
+                resta.setOnClickListener() {
+
+                    var res=0.0
+
+                    if (numUno.isEmpty()){
+
+                        Log.i("act","el primer num era 0")
+                        var  uno= numUno.toDouble()
+                        uno=0.0
+
+                        res= (uno.toDouble())-(numDos.toDouble())
+
+
+                    } else if (numDos.isEmpty()) {
+
+                        Log.i("act","el segundo num era 0")
+                        var dos= numDos.toDouble()
+
+                        dos=0.0
+
+                        res=(numUno.toDouble())-(dos.toDouble())
+
+
+                    } else {
+
+                        Log.i ("act","suma")
+
+                        res= (numUno.toDouble())-(numDos.toDouble())
+                    }
+
+
+                    calcB.res.text="$res"
+                }
+
+                //botón que suma
+                mult.setOnClickListener() {
+
+                    var res=0.0
+
+                    if (numUno.isEmpty()){
+
+                        Log.i("act","el primer num era 0")
+                        var  uno= numUno.toDouble()
+                        uno=0.0
+
+                        res= (uno.toDouble())*(numDos.toDouble())
+
+
+                    } else if (numDos.isEmpty()) {
+
+                        Log.i("act","el segundo num era 0")
+                        var dos= numDos.toDouble()
+
+                        dos=0.0
+
+                        res=(numUno.toDouble())*(dos.toDouble())
+
+
+                    } else {
+
+                        Log.i ("act","suma")
+
+                        res= (numUno.toDouble())*(numDos.toDouble())
+                    }
+
+
+                    calcB.res.text="$res"
+                }
+
 
 
             }
@@ -131,8 +239,9 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(applicationContext, "Bienvenido de vuelta", Toast.LENGTH_SHORT).show()
 
-        val principal= BienvenidaBinding.inflate(layoutInflater)
-        setContentView(principal.root)
+
+        val calcB = com.example.ejercicio01_tema01.databinding.CalculadoraBinding.inflate(layoutInflater)
+        setContentView(calcB.root)
 
 
     }

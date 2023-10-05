@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="40dp"
-    >
+>
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -124,4 +124,5 @@
             android:textSize="25sp" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat> </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
